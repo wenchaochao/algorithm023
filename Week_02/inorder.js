@@ -35,11 +35,12 @@ inorderTraversal(root) {
             S.push(root);
             root=root.left;
         }
-        root=S.top();S.pop();
+        root=S.top();
+        S.pop();
         v.push(root.val);
         root=root.right;
     }
-    return v;        
+    return v      
 }
 
 // 3莫里斯遍历
