@@ -28,3 +28,21 @@ const buildTree = (preorder, inorder) => {
   
 
 //  参考链接：https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/solution/ding-wei-chu-gen-jie-dian-de-wei-zhi-hua-fen-zuo-y/
+
+function buildTree(preorder, inorder) {
+  const map = new Map();
+  for(let i=0; i<inorder.length;i++){
+    map.set(inorder[i], i);
+  }
+  const helper = (p_start, p_end, i_start, i_end) => {
+    if (p_start > p_end) return null;
+    let valroot = preorder[p_start];
+    let root = new TreeNode(valroot);
+    let mid = map.get(valroot);
+    let leftNum = mid - i_start;
+    root.left = helper(p_start + 1, p_start + leftNum, i_start, mid - 1);
+    root.right = helper(p_start + leftNum + 1, p_end, mid + 1, i_end);
+    return root;
+  }
+  return helper(0, preorder.length - 1, 0, inorder.length -1);
+}
